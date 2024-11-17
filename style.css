@@ -1,0 +1,362 @@
+/* Global Styles */
+body {
+    box-sizing: border-box;
+    /* display: block; */
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #6200ea, #9a00ff);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 40px 20px;
+    gap: 20px;
+}
+
+/* Card Component */
+.card {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-container {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    color: #6200ea;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Form Input and Select */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    /* text-align: center; */
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #6200ea;
+    box-shadow: 0 0 8px rgba(98, 0, 234, 0.3);
+    outline: none;
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(135deg, #6200ea, #9a00ff);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #9a00ff, #b300ff);
+    box-shadow: 0 6px 12px rgba(98, 0, 234, 0.3);
+}
+
+button:active {
+    background: linear-gradient(135deg, #6200ea, #3700b3);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Task Container */
+
+
+/* Task Blocks */
+.task-block {
+    margin: 5px 0;
+    padding: 5px 10px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    h3{
+        text-transform: capitalize;
+        text-align: center;
+        color: blueviolet;
+    }
+}
+
+.priority-high {
+    border-left: 5px solid red;
+}
+
+.priority-medium {
+    border-left: 5px solid yellow;
+}
+
+.priority-low {
+    border-left: 5px solid green;
+}
+
+/* Calendar Section */
+.calendar {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+}
+
+.month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.weekdays, .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.weekdays div {
+    font-weight: bold;
+    color: #666;
+}
+
+.days div {
+    padding: 10px;
+    background-color: #eaeaea;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.days div:hover {
+    background-color: #d4d4d4;
+}
+
+#prev, #next {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: black;
+}
+
+.days .today {
+    font-weight: bold;
+    color: #fff;
+    background-color: #9a00ff;
+    border-radius: 5px;
+}
+
+/* Pomodoro Timer */
+.pomodoro-timer {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.pomodoro-timer h2 {
+    margin-bottom: 10px;
+}
+
+.pomodoro-timer p {
+    font-size: 1.5rem;
+    color: #6200ea;
+    margin-bottom: 20px;
+}
+
+.pomodoro-timer button {
+    background: linear-gradient(135deg, #ff5722, #ff7043);
+}
+
+.pomodoro-timer button:hover {
+    background: linear-gradient(135deg, #ff7043, #ff8a65);
+}
+
+.pomodoro-timer button:active {
+    background: linear-gradient(135deg, #e64a19, #ff5722);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card, .task-container, .calendar, .pomodoro-timer {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    .days div {
+        padding: 8px;
+    }
+}
+
+/* Capsule-shaped button for theme toggle */
+.theme-toggle {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px; /* Capsule shape */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background-color: #9a00ff;
+}
+
+.theme-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(98, 0, 234, 0.5);
+}
+
+/* Theme for dark mode */
+.dark-theme {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.dark-theme .theme-toggle {
+    background-color: #f5f5f5;
+    color: #121212;
+}
+
+.dark-theme .theme-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+/* Hide other elements when Pomodoro timer is active */
+.hidden {
+    display: none;
+}
+
+/* Timer Container */
+.timer-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring {
+    transform: rotate(-90deg); /* Start the circle from the top */
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.5s;
+    stroke-linecap: round;
+}
+
+/* Center the timer text */
+.timer-content {
+    position: absolute;
+    text-align: center;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.timer-content h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.timer-content #time {
+    font-size: 2.5em;
+}
+
+.timer-content p {
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+/* Start button */
+#startPomodoroBtn {
+    background: #6200ea;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background 0.3s ease;
+}
+
+#startPomodoroBtn:hover {
+    background: #3700b3;
+}
