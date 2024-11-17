@@ -6,12 +6,8 @@
     <title>Productivity Enhancement</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- FullCalendar CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
-
-    <!-- FullCalendar JS -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <header>
@@ -21,23 +17,25 @@
 
     <main>
         <button id="themeToggle" class="theme-toggle">🌞 Bright Mode</button>
-        <div class="calendar card">
-            <div class="month">
-                <button id="prev">&lt;</button>
-                <div id="month-year"></div>
-                <button id="next">&gt;</button>
+        
+        <div class="report-card card">
+            <div class="report-header">
+                <button id="prev-report">&lt;</button>
+                <div id="report-title">Today</div>
+                <button id="next-report">&gt;</button>
             </div>
-            <div class="weekdays">
-                <div>Sun</div>
-                <div>Mon</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
+            <div class="report-body">
+                <div class="report-section">
+                    <h3>Total Hours Focused</h3>
+                    <p id="hours-focused">0 hours</p>
+                </div>
+                <div class="report-section">
+                    <h3>Tasks Completed</h3>
+                    <p id="tasks-completed">0 tasks</p>
+                </div>
             </div>
-            <div class="days" id="days"></div>
         </div>
+        
 
         <div id="task-input" class="card">
             <h2>Add New Task</h2>
@@ -48,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label for="taskTime">Deadline</label>
-                    <input type="datetime-local" id="taskTime" required>
+                    <input type="text" id="taskTime" placeholder="Select a deadline" required>
                 </div>
                 <div class="form-group">
                     <label for="taskPriority">Priority</label>
@@ -68,10 +66,7 @@
         <div class="task-container card">
             <h2>Scheduled Tasks</h2>
         </div>
-
-        
   
-
         <div class="pomodoro-timer">
             <h2>Pomodoro Timer</h2>
             <p><strong>Pomodoro Time:</strong> <span id="pomodoro-time">25:00</span></p>
