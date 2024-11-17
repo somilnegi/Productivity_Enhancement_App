@@ -3,29 +3,11 @@ flatpickr("#taskTime", {
     dateFormat: "Y-m-d H:i",       // Format for date and time (YYYY-MM-DD HH:mm)
     time_24hr: true                // Use 24-hour time format
 });
-
-// Function to format the time remaining
-function calculateTimeLeft(taskTime) {
-    const currentTime = new Date();
-    const deadline = new Date(taskTime);
-    const timeDifference = deadline - currentTime;
-
-    if (timeDifference <= 0) {
-        return "Time's up!";
-    }
-
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours} hrs ${minutes} mins left`;
-}
-
-
 // Get references to form elements
 const taskForm = document.getElementById('taskForm');
 const taskNameInput = document.getElementById('taskName');
 const taskTimeInput = document.getElementById('taskTime');
 const taskPriorityInput = document.getElementById('taskPriority');
-
 // Function to calculate time left until the deadline
 function calculateTimeLeft(taskTime) {
     const currentTime = new Date();
@@ -41,15 +23,15 @@ function calculateTimeLeft(taskTime) {
     return `${hours} hrs ${minutes} mins left`;
 }
 
-// Handle form submission to add task to both task list and calendar
-taskForm.addEventListener('submit', function(event) {
+// Handle form submission to add a task to both task list and calendar
+taskForm.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form submission
 
     // Get form values
-    const taskName = taskNameInput.value;
-    const taskTime = taskTimeInput.value;
-    const taskPriority = taskPriorityInput.value;
-    
+    const taskName = taskNameInput.value.trim();
+    const taskTime = taskTimeInput.value.trim();
+    const taskPriority = taskPriorityInput.value.trim();
+
     // Validate that taskName and taskTime are provided
     if (!taskName || !taskTime) {
         alert("Please provide both task name and deadline.");
@@ -61,74 +43,81 @@ taskForm.addEventListener('submit', function(event) {
     const taskBlock = document.createElement('div');
     taskBlock.classList.add('task-block', `priority-${taskPriority}`);
 
+    // Generate task block content
     taskBlock.innerHTML = `
         <h3>${taskName}</h3>
-        <div class="status ${getStatusClass()}">${getStatus()}</div>
+        <div class="status pending">Pending</div>
         <div class="task-details">
-            <p><strong>Priority: </strong> ${taskPriority}</p>
+            <p><strong>Priority: </strong> ${capitalizeFirstLetter(taskPriority)}</p>
             <p><strong>Deadline: </strong> ${taskTime}</p>
             <p><strong>Time left: </strong> ${calculateTimeLeft(taskTime)}</p>
         </div>
+        <input type="checkbox" class="mark-complete" />
     `;
-    
+
     // Append the task block to the task container
     taskContainer.appendChild(taskBlock);
 
+    // Add event listener for the "Mark Complete" checkbox
+    const completeCheckbox = taskBlock.querySelector('.mark-complete');
+    const statusDiv = taskBlock.querySelector('.status');
+
+    completeCheckbox.addEventListener('change', function () {
+        if (completeCheckbox.checked) {
+            taskBlock.classList.add('completed');
+            statusDiv.className = 'status completed';
+            statusDiv.textContent = 'Completed';
+        } else {
+            taskBlock.classList.remove('completed');
+            statusDiv.className = 'status pending';
+            statusDiv.textContent = 'Pending';
+        }
+    });
+
+    // Check if deadline is passed periodically
+    const interval = setInterval(() => {
+        if (isDeadlinePassed(taskTime)) {
+            statusDiv.textContent = 'Deadline Passed';
+            statusDiv.className = 'status deadline-passed';
+            clearInterval(interval); // Stop checking once the status is updated
+        } else {
+            statusDiv.textContent = 'Pending';
+            statusDiv.className = 'status pending';
+        }
+    }, 1000);
+
     // Clear form inputs
     taskForm.reset();
-
-    let activeTimer = null;
-    let startTime;
-
-    // Start timer functionality
-    taskBlock.addEventListener('click', function() {
-        // If a timer is already active, stop it
-        if (activeTimer) {
-            clearInterval(activeTimer);
-            activeTimer = null;
-            alert("Timer stopped for the previous task.");
-        }
-
-        // Start tracking time
-        startTime = new Date();
-        activeTimer = setInterval(() => {
-            const now = new Date();
-            const timeElapsed = now - startTime;
-            const hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-            const minutes = Math.floor((timeElapsed % (1000 * 60 * 60)) / (1000 * 60));
-            taskBlock.querySelector('.time-spent').textContent = `${hours} hrs ${minutes} mins spent`;
-        }, 1000);
-    });
 });
 
-// Function to calculate time left (just an example)
-function calculateTimeLeft(deadline) {
-    const currentTime = new Date();
-    const deadlineTime = new Date(deadline);
-    const timeDifference = deadlineTime - currentTime;
-    const hoursLeft = Math.floor(timeDifference / (1000 * 60 * 60));
-    return `${hoursLeft} hours`;
+// Helper function: Capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Function to get the status of the task (for illustration)
-function getStatus() {
-    return 'In Progress'; // Replace with logic to dynamically set status
+// Helper function: Check if the deadline has passed
+function isDeadlinePassed(taskTime) {
+    const deadline = new Date(taskTime);
+    const now = new Date();
+    return now >= deadline;
 }
 
-// Function to get the status class (for illustration)
-function getStatusClass() {
-    return 'in-progress'; // Replace with dynamic status classes ('completed', 'in-progress', etc.)
+// Helper function: Calculate time left until deadline
+function calculateTimeLeft(taskTime) {
+    const deadline = new Date(taskTime);
+    const now = new Date();
+    const timeLeft = deadline - now;
+
+    if (timeLeft <= 0) {
+        return "Deadline passed";
+    }
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${days}d ${hours}h ${minutes}m remaining`;
 }
-
-// Add styles for hover functionality in the CSS
-// .task-details {
-//    display: none;
-// }
-
-// .task-block:hover .task-details {
-//     display: block;
-// }
-
 
 const themeToggleBtn = document.getElementById('themeToggle');
 const body = document.body;

@@ -74,7 +74,6 @@ input, select {
     margin: 10px 0;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    /* text-align: center; */
     font-size: 1rem;
     background-color: #f9f9f9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -119,12 +118,6 @@ button:active {
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.task-block:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(187, 0, 255, 0.2);
 }
 
 h3 {
@@ -155,23 +148,30 @@ h3 {
     display: block;
 }
 
+/* Status styles */
 .status {
-    background-color: #ddd;
     padding: 5px 10px;
     border-radius: 5px;
-}
-
-.status.completed {
-    background-color: lightgreen;
-}
-
-.status.in-progress {
-    background-color: lightyellow;
+    font-weight: bold;
+    text-align: center;
 }
 
 .status.pending {
     background-color: lightcoral;
+    color: white;
 }
+
+.status.completed {
+    background-color: lightgreen;
+    color: darkgreen;
+}
+
+.status.deadline-passed {
+    background-color: #ffdddd;
+    color: red;
+    font-weight: bold;
+}
+
 
 /* Report Section */
 .report-card {
